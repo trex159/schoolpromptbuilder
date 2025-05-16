@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Prompt-Builder für Schule</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding: 0;
+      background: #e9ecef;
+      max-width: 700px;
+      margin: 40px auto 0 auto;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+    }
+    .hint {
+      color: #888;
+      font-size: 0.98em;
+      margin-bottom: 18px;
+      margin-top: -8px;
+    }
+    label {
+      display: block;
+      margin-top: 14px;
+      color: #34495e;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 9px 10px;
+      margin-top: 5px;
+      border: 1px solid #bfc9d1;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1em;
+      background: #f8fafc;
+      transition: border 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border: 1.5px solid #007bff;
+      outline: none;
+      background: #fff;
+    }
+    button {
+      margin-top: 18px;
+      padding: 11px 20px;
+      background: linear-gradient(90deg, #007bff 60%, #0056b3 100%);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.07em;
+      font-weight: 500;
+      box-shadow: 0 2px 8px #007bff22;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #0056b3 60%, #007bff 100%);
+    }
+    .button-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    #output-card {
+      background: #fff;
+      padding: 22px 18px 18px 18px;
+      margin-top: 28px;
+      border-radius: 10px;
+      border: 1.5px solid #d1dbe6;
+      box-shadow: 0 2px 12px #007bff11;
+      min-height: 80px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+    #output-card:empty {
+      display: none;
+    }
+    #output {
+      white-space: pre-wrap;
+      font-size: 1.04em;
+      color: #222;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      min-height: 40px;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #888;
+      font-size: 0.98em;
+      letter-spacing: 0.1px;
+      padding-bottom: 10px;
+    }
+    @media (max-width: 600px) {
+      body { padding: 8px; }
+      #output-card { padding: 13px 6px 10px 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📘 Schul-Prompt-Builder</h1>
+  <div class="hint">
+    Für individuelle Anpassungen und extra Wünsche gibt es eine <span style="color:#007bff;">personalisierte Pro-Version</span> für <span style="color:#977171;">0.50€ - 1.00€</span>, je nach Anforderungen.
+  </div>
+
+  <label>Thema:</label>
+  <input type="text" id="thema" placeholder="z. B. Photosynthese, Bruchrechnung">
+
+  <label>Fach:</label>
+  <input type="text" id="fach" placeholder="z. B. Biologie, Mathe, Deutsch">
+
+  <label>Klassenstufe:</label>
+  <input type="text" id="klasse" placeholder="z. B. 7">
+
+  <label>Schulart:</label>
+  <select id="schulart">
+    <option value="Gymnasium">Gymnasium</option>
+    <option value="Realschule">Realschule</option>
+    <option value="Hauptschule">Hauptschule</option>
+    <option value="Gesamtschule">Gesamtschule</option>
+    <option value="Berufsschule">Berufsschule</option>
+  </select>
+
+  <label for="bundesland">Bundesland:</label>
+  <select id="bundesland" name="bundesland">
+    <option value="Baden-Württemberg">Baden-Württemberg</option>
+    <option value="Bayern">Bayern</option>
+    <option value="Berlin">Berlin</option>
+    <option value="Brandenburg">Brandenburg</option>
+    <option value="Bremen">Bremen</option>
+    <option value="Hamburg">Hamburg</option>
+    <option value="Hessen">Hessen</option>
+    <option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</option>
+    <option value="Niedersachsen">Niedersachsen</option>
+    <option value="Nordrhein-Westfalen">Nordrhein-Westfalen</option>
+    <option value="Rheinland-Pfalz">Rheinland-Pfalz</option>
+    <option value="Saarland">Saarland</option>
+    <option value="Sachsen">Sachsen</option>
+    <option value="Sachsen-Anhalt">Sachsen-Anhalt</option>
+    <option value="Schleswig-Holstein">Schleswig-Holstein</option>
+    <option value="Thüringen">Thüringen</option>
+  </select>
+
+  <label>Sprachstil (z. B. einfach, neutral, locker):</label>
+  <input type="text" id="sprachstil" placeholder="z. B. einfach, neutral, locker, humorvoll">
+
+  <label>Darstellungsform (z. B. Tabelle, Diagramm, Vergleich, Analogie):</label>
+  <input type="text" id="darstellung" placeholder="z. B. Tabelle, Diagramm, Vergleich, Beispiel">
+
+  <label>Lernumfang (z. B. Kurzfassung, 10-Minuten-Erklärung, ausführlich):</label>
+  <input type="text" id="lernumfang" placeholder="z. B. 10-Minuten-Erklärung, Zusammenfassung">
+
+  <label>Zusatzinformationen:</label>
+  <textarea id="zusatzinfos" rows="2" placeholder="z. B. Prüfungsvorbereitung, Schwerpunkt liegt auf Grammatik"></textarea>
+
+  <label>Sprachsensibilität / Inklusion:</label>
+  <textarea id="sensibel" rows="2" placeholder="z. B. einfache Sprache, gendergerechte Sprache, visuelle Unterstützung nötig"></textarea>
+
+  <div class="button-row">
+    <button onclick="generatePrompt()">✅ Prompt generieren</button>
+    <button onclick="copyPrompt()" id="copyBtn" style="display:none;">📋 Prompt kopieren</button>
+  </div>
+
+  <div id="output-card">
+    <div id="output"></div>
+  </div>
+
+  <footer>
+    &copy; Richard-2025
+  </footer>
+
+  <script>
+    function generatePrompt() {
+      const thema = document.getElementById("thema").value.trim();
+      const fach = document.getElementById("fach").value.trim();
+      const klasse = document.getElementById("klasse").value.trim();
+      const schulart = document.getElementById("schulart").value;
+      const bundesland = document.getElementById("bundesland").value;
+      const sprachstil = document.getElementById("sprachstil").value.trim();
+      const darstellung = document.getElementById("darstellung").value.trim();
+      const lernumfang = document.getElementById("lernumfang").value.trim();
+      const zusatzinfos = document.getElementById("zusatzinfos").value.trim();
+      const sensibel = document.getElementById("sensibel").value.trim();
+
+      let prompt = `Du bist ein Fachlehrer und Bildungsexperte, der mir dabei hilft, ein schulisches Thema verständlich, strukturiert und lehrplangerecht aufzubereiten.\n\n`;
+
+      prompt += `Erkläre mir das Thema "${thema}" im Fach ${fach} so, dass es verständlich für eine Person in der ${klasse}. Klasse der ${schulart} in ${bundesland} ist.\n`;
+      prompt += `Nutze dabei die typischen Anforderungen, Begriffe und didaktischen Prinzipien des Unterrichts. Erkläre nur die Inhalte die im Lehrplan dieses Faches in dieser Schule und diesem Bundesland stehen, außer es ist anders gefordert.\n\n`;
+
+      prompt += `Strukturiere die Erklärung folgendermaßen:\n\n`;
+      prompt += `1. Eine kurze Einführung in das Thema in altersgerechter Sprache${sprachstil ? " (angepasst an " + sprachstil + ")" : ""}\n\n`;
+      prompt += `2. Die wichtigsten Inhalte als übersichtliche und verständliche Stichpunkte\n\n`;
+      prompt += `3. Drei passende Beispielaufgaben mit Lösungen, zugeschnitten auf die Lernziele dieser Stufe\n\n`;
+      if (darstellung) {
+        prompt += `4. Verwende bei Bedarf geeignete Darstellungsformen wie ${darstellung}\n\n`;
+      }
+      if (lernumfang) {
+        prompt += `Der Umfang soll etwa ${lernumfang} entsprechen.\n\n`;
+      }
+      if (zusatzinfos) {
+        prompt += `Berücksichtige folgende Zusatzinformationen: ${zusatzinfos}.\n`;
+      }
+      if (sensibel) {
+        prompt += `Beziehe bei Bedarf auch inklusive oder sprachsensible Aspekte ein: ${sensibel}.`;
+      }
+
+      document.getElementById("output").innerText = prompt.trim();
+      document.getElementById("output-card").style.display = prompt.trim() ? "block" : "none";
+      document.getElementById("copyBtn").style.display = prompt.trim() ? "inline-block" : "none";
+    }
+
+    function copyPrompt() {
+      const promptText = document.getElementById("output").innerText;
+      if (!promptText) return;
+      navigator.clipboard.writeText(promptText).then(() => {
+        const btn = document.getElementById("copyBtn");
+        btn.innerText = "✅ Kopiert!";
+        setTimeout(() => { btn.innerText = "📋 Prompt kopieren"; }, 1200);
+      });
+    }
+  </script>
+
+</body>
+</html>
